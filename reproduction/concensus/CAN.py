@@ -33,17 +33,6 @@ def plot_data(data, catagory):
     plt.show()
 
 
-# def calc_eigen(W, k):
-#     S = (W + W.T) / 2
-#     d = np.sum(S, axis=0)
-#     D = np.diag(d)
-#     L = D - S
-#     lamb, V = np.linalg.eig(L)
-#     lamb = lamb.real
-#     idx = np.argsort(lamb)[: k]
-#     lamb = np.sort(lamb)
-#     F = V[:, idx]
-#     return lamb, F
 
 def CAN(data, k, lambda_1 = 1, epoch = 20):
     N = data.shape[0]
@@ -105,12 +94,14 @@ def get_gamma(data, m = 8):
     return np.mean(rr)
 filename = ""
 if __name__ == "__main__":
-    data_v, label, k = get_data(dataset = "Mfeat")
+    Dataset = "Mfeat"
+    Dataset = "Caltech101-7"
+    data_v, label, k = get_data(dataset = Dataset)
     # gamma = 2
     lambda_1 = 1
-    for ww in range(4, 6):
+    for ww in range(len(data_v)):
         data = data_v[ww].copy()
-        gamma = get_gamma(data, m = 9)
+        gamma = get_gamma(data, m = 20)
         print(gamma)
         S, ans = CAN(data, k, lambda_1=lambda_1)
         for i in range(k):
