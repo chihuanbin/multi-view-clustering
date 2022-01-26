@@ -1,37 +1,11 @@
-# Multi-view Clustering
-A categorization and reproduction for Multi-view Clustering(MvC).
+# Consensus MvC
 
 ## Contents
-* [Papers](##papers)
-* [Performance](##performance)
-<!-- * [Datasets](#datasets)
-* [Papers](#papers)
-* [Leaderboard](#leaderboard) -->
-  
-## Papers
-### Consensus MvC for better performance
- - [x] CAN [Clustering and Projected Clustering with Adaptive Neighbors](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.707.56&rep=rep1&type=pdf) [code]()
- - [x] MLAN [Multi-View Clustering and Semi-Supervised Classification with Adaptive Neighbours](https://www.aaai.org/ocs/index.php/AAAI/AAAI17/paper/viewPDFInterstitial/14833/14423)   [code]()
- - [x] CLR [The constrained laplacian rank algorithm for graph-based clustering](https://ojs.aaai.org/index.php/AAAI/article/download/10302/10161)  [code]()
- - [x] SwMC [Self-weighted Multiview Clustering with Multiple Graphs](https://www.ijcai.org/proceedings/2017/0357.pdf)  [code]()
- - [x] PwMC [Self-weighted Multiview Clustering with Multiple Graphs](https://www.ijcai.org/proceedings/2017/0357.pdf)  [code]()
- - [x] Co-regularization [Co-regularized multi-view spectral clustering](http://www.abhishek.umiacs.io/coregspectral.nips11.pdf)    [code]()
- - [ ] AMGL [Parameter-free auto-weighted multiple graph learning: a framework for multiview clustering and semi-supervised classification](https://www.ijcai.org/Proceedings/16/Papers/269.pdf)
- - [ ] MCGC [Multiview Consensus Graph Clustering]
-
-
-### MvC for large-scale data
- - [ ] MVSC [Large-scale multi-view spectral clustering via bipartite graph](https://www.aaai.org/ocs/index.php/AAAI/AAAI15/paper/viewPaper/9641)
- - [ ] SMKMC [Multi-View K-Means Clustering on Big Data](https://www.researchgate.net/profile/Xiao-Cai-2/publication/258945832_Multi-View_K-Means_Clustering_on_Big_Data/links/0a85e5304c2a14700f000000/Multi-View-K-Means-Clustering-on-Big-Data.pdf)
-
-### Incomplete MvC
-
- - [ ] PIC [Spectral Perturbation Meets Incomplete Multi-view Data](https://arxiv.org/pdf/1906.00098)
- - [ ] PVC [Partial multi-view clustering](https://ojs.aaai.org/index.php/AAAI/article/view/8973)
+  * [Performance](#performance)
+  * [Tips](#tips)
 
 ## Performance
 
-### Consensus MvC
 |                   |        |  Mfeat |        |        | Caltech101-7 |        |
 |-------------------|:------:|:------:|:------:|:------:|:------------:|:------:|
 | Methods           | Acc    | NMI    | F      | Acc    | NMI          | F      |
@@ -42,3 +16,15 @@ A categorization and reproduction for Multi-view Clustering(MvC).
 | CAN(best)         | 0.8760 | 0.9043 | 0.8443 | 0.7225 | 0.4347       | 0.2475 |
 | MLAN              | 0.9515 | 0.9129 | 0.9538 | 0.8161 | 0.5501       | 0.3792 |
 | Co-regularization | 0.9640 | 0.9311 | 0.9643 | 0.6509 | 0.5502       | 0.3077 |
+
+## Tips
+略写一下复现中遇到的问题。
+SC：在谱聚类的过程中，需要求取前k个特征根。我这里采用np自带的函数numpy.linalg.eig()，再取前k个，这样速度会很慢，有时也会因为拟合精度不够而返回warning。
+与其他组的师兄交流后，我下一步将采用svd替代原方法求取特征值和特征根。
+CAN: 在确定$\gamma$时需要一个m-近邻的操作，其中$m$过小时，$\gamma$过小，其得到的图的秩小于$N-K$，分割了过多的类。
+此时增大m即可。
+MLAN：第一个问题如上。其次会遇到不同视角中特征维度不同的问题，在实验中发现其对多视角的融合产生很大的影响，所以对于每个视角的距离图，可以将其除以该视角的特征维度，这样融合有更好的效果。
+CLR：CLR是我第一个复现的方法，其细节主要在于$\lambda$的调整和算法收敛的判断。另一个问题在于算法和论文中复现值有差别，后来才发觉因为CLR有时也会分出孤立点，所以其用的是purity而不是accuracy来评价。
+SwMC：复现后发现其中关键部分可以直接调用CLR方法。其初始化对模型影响比较大。
+PwMC：需要调参，其效果大多数情况下不如self-weighted的好。
+Co-regularization： 虽然看上去结果较好，但是其结果不能稳定在局部最优区域，是震荡的形式(我的评估方式对吗！)。但是还是可以看出用谱聚类得到的特征进行融合其效果还是相对更好的。
