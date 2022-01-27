@@ -15,8 +15,8 @@ A categorization and reproduction for Multi-view Clustering(MvC).
  - [x] CLR [The constrained laplacian rank algorithm for graph-based clustering](https://ojs.aaai.org/index.php/AAAI/article/download/10302/10161)  [[code]](https://github.com/bjlfzs/multi-view-clustering/blob/main/reproduction/concensus/CLR.py)
  - [x] SwMC [Self-weighted Multiview Clustering with Multiple Graphs](https://www.ijcai.org/proceedings/2017/0357.pdf)  [[code]](https://github.com/bjlfzs/multi-view-clustering/blob/main/reproduction/concensus/PwSC.py)
  - [x] PwMC [Self-weighted Multiview Clustering with Multiple Graphs](https://www.ijcai.org/proceedings/2017/0357.pdf)  [[code]](https://github.com/bjlfzs/multi-view-clustering/blob/main/reproduction/concensus/PwSC.py)
- - [x] Co-regularization [Co-regularized multi-view spectral clustering](http://www.abhishek.umiacs.io/coregspectral.nips11.pdf)    [[code]](https://github.com/bjlfzs/multi-view-clustering/blob/main/reproduction/concensus/Co-regularization.py)
- - [ ] AMGL [Parameter-free auto-weighted multiple graph learning: a framework for multiview clustering and semi-supervised classification](https://www.ijcai.org/Proceedings/16/Papers/269.pdf)
+ - [x] Co-reg [Co-regularized multi-view spectral clustering](http://www.abhishek.umiacs.io/coregspectral.nips11.pdf)    [[code]](https://github.com/bjlfzs/multi-view-clustering/blob/main/reproduction/concensus/Co-regularization.py)
+ - [x] AMGL [Parameter-free auto-weighted multiple graph learning: a framework for multiview clustering and semi-supervised classification](https://www.ijcai.org/Proceedings/16/Papers/269.pdf)  [[code]](https://github.com/bjlfzs/multi-view-clustering/blob/main/reproduction/concensus/AMGL.py)
  - [ ] MCGC [Multiview Consensus Graph Clustering]
 
 
@@ -32,13 +32,15 @@ A categorization and reproduction for Multi-view Clustering(MvC).
 ## Performance
 
 ### Consensus MvC
-|                   |        |  Mfeat |         |        | Caltech101-7 |         |
-|-------------------|:------:|:------:|:------: |:------:|:------------:|:------: |
-| Methods           | Acc    | NMI    |F_measure| Acc    | NMI          |F_measure|
-| SC_best           | 0.8290 | 0.8430 | 0.8020  | 0.6357 | 0.5177       |  0.2823 |
-| CLR_best          | 0.8315 | 0.8380 | 0.8020  | 0.7120 | 0.5260       |  0.2670 |
-| SwMC              | 0.8575 | 0.8876 | 0.8376  | 0.6506 | 0.5820       |  0.3192 |
-| PwMC              | 0.8595 | 0.8845 | 0.8388  | 0.6520 | 0.5483       |  0.3195 |
-| CAN(best)         | 0.8760 | 0.9043 | 0.8443  | 0.7225 | 0.4347       |  0.2475 |
-| MLAN              | 0.9515 | 0.9129 | 0.9538  | 0.8161 | 0.5501       |  0.3792 |
-| Co-regularization | 0.9640 | 0.9311 | 0.9643  | 0.6509 | 0.5502       |  0.3077 |
+
+|          |        |  Mfeat |           |        | Caltech101-7 |           |
+|----------|:------:|:------:|:---------:|:------:|:------------:|:---------:|
+| Methods  | Acc    | NMI    | F-measure | Acc    | NMI          | F-measure |
+| SC_best  | 0.829  | 0.843  | 0.802     | 0.636  | 0.518        | 0.282     |
+| CLR_best | 0.832  | 0.838  | 0.802     | 0.712  | 0.526        | 0.267     |
+| SwMC     | 0.858  | 0.888  | 0.838     | 0.651  | 0.582        | 0.319     |
+| PwMC     | 0.860  | 0.885  | 0.839     | 0.652  | 0.548        | 0.320     |
+| CAN_best | 0.876  | 0.904  | 0.844     | 0.723  | 0.435        | 0.248     |
+| MLAN     | 0.952  | 0.913  | 0.954     | 0.816  | 0.550        | 0.379     |
+| Co-reg   | 0.964  | 0.931  | 0.964     | 0.651  | 0.550        | 0.308     |
+| AMGL     | 0.876  | 0.894  | 0.861     | 0.674  | 0.650        | 0.392     |
