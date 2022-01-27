@@ -11,10 +11,10 @@ A categorization and reproduction for Multi-view Clustering(MvC).
 ## Papers
 ### Consensus MvC for better performance
  - [x] CAN [Clustering and Projected Clustering with Adaptive Neighbors](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.707.56&rep=rep1&type=pdf) [[code]](https://github.com/bjlfzs/multi-view-clustering/blob/main/reproduction/concensus/CAN.py)
- - [x] MLAN [Multi-View Clustering and Semi-Supervised Classification with Adaptive Neighbours](https://www.aaai.org/ocs/index.php/AAAI/AAAI17/paper/viewPDFInterstitial/14833/14423)   [[code]](https://github.com/bjlfzs/multi-view-clustering/blob/main/reproduction/concensus/MLAN.py)
+   - [x] MLAN [Multi-View Clustering and Semi-Supervised Classification with Adaptive Neighbours](https://www.aaai.org/ocs/index.php/AAAI/AAAI17/paper/viewPDFInterstitial/14833/14423)   [[code]](https://github.com/bjlfzs/multi-view-clustering/blob/main/reproduction/concensus/MLAN.py)
  - [x] CLR [The constrained laplacian rank algorithm for graph-based clustering](https://ojs.aaai.org/index.php/AAAI/article/download/10302/10161)  [[code]](https://github.com/bjlfzs/multi-view-clustering/blob/main/reproduction/concensus/CLR.py)
- - [x] SwMC [Self-weighted Multiview Clustering with Multiple Graphs](https://www.ijcai.org/proceedings/2017/0357.pdf)  [[code]](https://github.com/bjlfzs/multi-view-clustering/blob/main/reproduction/concensus/PwSC.py)
- - [x] PwMC [Self-weighted Multiview Clustering with Multiple Graphs](https://www.ijcai.org/proceedings/2017/0357.pdf)  [[code]](https://github.com/bjlfzs/multi-view-clustering/blob/main/reproduction/concensus/PwSC.py)
+   - [x] SwMC [Self-weighted Multiview Clustering with Multiple Graphs](https://www.ijcai.org/proceedings/2017/0357.pdf)  [[code]](https://github.com/bjlfzs/multi-view-clustering/blob/main/reproduction/concensus/PwSC.py)
+   - [x] PwMC [Self-weighted Multiview Clustering with Multiple Graphs](https://www.ijcai.org/proceedings/2017/0357.pdf)  [[code]](https://github.com/bjlfzs/multi-view-clustering/blob/main/reproduction/concensus/PwSC.py)
  - [x] Co-reg [Co-regularized multi-view spectral clustering](http://www.abhishek.umiacs.io/coregspectral.nips11.pdf)    [[code]](https://github.com/bjlfzs/multi-view-clustering/blob/main/reproduction/concensus/Co-regularization.py)
  - [x] AMGL [Parameter-free auto-weighted multiple graph learning: a framework for multiview clustering and semi-supervised classification](https://www.ijcai.org/Proceedings/16/Papers/269.pdf)  [[code]](https://github.com/bjlfzs/multi-view-clustering/blob/main/reproduction/concensus/AMGL.py)
  - [ ] MCGC [Multiview Consensus Graph Clustering]
