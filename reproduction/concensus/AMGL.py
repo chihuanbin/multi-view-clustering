@@ -1,3 +1,12 @@
+# -*- encoding: utf-8 -*-
+'''
+Filename         :AMGL.py
+Description      :
+Time             :2022/02/10 23:01:12
+Author           :zqyang
+Version          :1.0
+'''
+
 import os
 from sklearn import metrics
 import numpy as np
@@ -13,6 +22,7 @@ from sklearn.metrics.cluster import normalized_mutual_info_score
 import evaluation
 
 def dist_map(F):
+    
     n = F.shape[0]
     c = np.zeros((n, n))
     for i in range(n):
@@ -24,7 +34,19 @@ Dataset = "100leaves"
 Dataset = "Caltech101-7"
 Dataset = "Mfeat"
 data_v, label, k = get_data(dataset=Dataset)
+
 def AMGL(W, k, lambda_1 = 1):
+    """
+
+    Arguments
+    ---------
+    W : list of NxN graphs in V views
+    k : the number of categories.
+    Returns
+    -------
+    ans : prediction results.
+    """
+
     epoch = 0
     V = len(W)
     alpha = np.ones(V) / V
@@ -48,7 +70,7 @@ def AMGL(W, k, lambda_1 = 1):
         print(evaluation.clustering(ans, label))
         for i in range(k):
             print("Cluster_num" + str(i) + ":", (ans == i).sum())
-    return _, ans
+    return ans
 
 n = label.shape[0]
 W_v = []
@@ -57,4 +79,4 @@ for i in range(V):
     W = CLR_map(data_v[i])
     W_v.append(W)
 lambda_c = 1
-_, _ = AMGL(W_v, k)
+_ = AMGL(W_v, k)

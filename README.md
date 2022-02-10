@@ -18,8 +18,8 @@ A categorization and reproduction for Multi-view Clustering(MvC).
  - [x] Co-reg [Co-regularized multi-view spectral clustering](http://www.abhishek.umiacs.io/coregspectral.nips11.pdf)    [[code]](https://github.com/bjlfzs/multi-view-clustering/blob/main/reproduction/concensus/Co-regularization.py)
  - [x] AMGL [Parameter-free auto-weighted multiple graph learning: a framework for multiview clustering and semi-supervised classification](https://www.ijcai.org/Proceedings/16/Papers/269.pdf)  [[code]](https://github.com/bjlfzs/multi-view-clustering/blob/main/reproduction/concensus/AMGL.py)
  - [ ] MCGC [Multiview Consensus Graph Clustering]
-
-
+ - [ ] AWP [Multiview Clustering via Adaptively Weighted Procrustes](https://dl.acm.org/doi/abs/10.1145/3219819.3220049)
+ - [ ] Uni [A Unified Weight Learning Paradigm for Multi-view Learning](http://proceedings.mlr.press/v89/tian19a.html)
 ### MvC for large-scale data
  - [ ] MVSC [Large-scale multi-view spectral clustering via bipartite graph](https://www.aaai.org/ocs/index.php/AAAI/AAAI15/paper/viewPaper/9641)
  - [ ] SMKMC [Multi-View K-Means Clustering on Big Data](https://www.researchgate.net/profile/Xiao-Cai-2/publication/258945832_Multi-View_K-Means_Clustering_on_Big_Data/links/0a85e5304c2a14700f000000/Multi-View-K-Means-Clustering-on-Big-Data.pdf)
