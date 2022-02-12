@@ -9,6 +9,18 @@ from scipy.sparse.csgraph import connected_components
         
         
 def CLR_map(data, m = 5):
+    """
+    
+    Arguments
+    ---------
+    data : raw data
+    m : number of neighbors taken into consider
+    Returns
+    -------
+    W : graph constructed with mth nearest neighbor
+    """
+    
+    
     n = data.shape[0]
     e = np.zeros((n, n))    
     for i in range(n):
@@ -29,11 +41,19 @@ def CLR_map(data, m = 5):
     return W
 
 def simplex_opt(v, k=1):
-    '''
-    Column Vector :param v:
-    IDK parameter :param k:
-    :return:
-    '''
+    """
+    Optimation method to find solution for condition in (A New Simplex Sparse Learning Model to Measure
+Data Similarity for Clustering) 
+    Arguments
+    ---------
+    v : vector to be solved
+    k : parameter as denominator
+    Returns
+    -------
+    x : optimization result
+    """
+    
+
     n = v.shape[0]
     u = v - v.mean() + 1 / n
 
@@ -61,6 +81,20 @@ def simplex_opt(v, k=1):
     return x
 #"Mfeat"
 def get_data(dataset="Caltech101-7"):
+    """
+    
+    Arguments
+    ---------
+    dataset : multi-view dataset
+    
+    Returns 
+    -------
+    data_v : list of preprocessed data
+    label  : true labels
+    k      : number of clusters
+    """
+    
+    
     dir = "C:/Users/78258/Desktop/repos/Reproduction/data_process/processed/"
     # dir = "./data_process/processed/"
     data_v = []
@@ -90,30 +124,42 @@ def get_data(dataset="Caltech101-7"):
             return data_v, label, k
     print("Not Found")
     return 
-def get_laplacian(W, normalization = 1):
-    '''
-    W: Adjacency matrix(n*n)
-    normalization: N or NotN
-    output:
-    L: Laplace Matrix
-    '''
+def get_laplacian(W, norm = 1):
+    """
+    
+    Arguments
+    ---------
+    W    : Adjacency matrix(n*n)
+    norm : if laplacian normalized or not
+    
+    Returns
+    -------
+    L    : Laplace matrix
+    """
+    
     S = (W + W.T) / 2
     d = np.sum(S, axis=0)
     D = np.diag(d)
     L = D - S
-    if normalization == 1:
+    if norm == 1:
         D_w = np.diag(np.sqrt(1/d))
         L = D_w @ L @ D_w
     return L 
 
 def calc_eigen(L, k, large_ones = 0):
-    '''
+    """
+    
+    Arguments
+    ---------
     L: Laplace Matrix
     k: Clustering number
-    output:
-    lamb: all_lambda (sorted)
-    F: Eigenvector
-    '''
+    
+    Returns
+    -------
+    lamb: sorted lambda
+    F: eigenvectors
+    large_ones : Sort order (0 represents from smallest to largest)
+    """
 
     lamb, V = np.linalg.eig(L) #不稳定？
 
