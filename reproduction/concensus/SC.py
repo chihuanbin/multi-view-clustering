@@ -11,20 +11,6 @@ def eu_dist(x, y):
 def l2_dist(x, y):
     return np.sum((x - y) ** 2)
 
-# def affinity(data, method = "FCon", k = 5, sigma = 0.415):
-#     n = data.shape[0]
-#     dist = np.zeros(shape = (n, n))
-#     for i in range(n):
-#         for j in range(n):
-#             if i != j:
-#                 dist[i][j] = np.exp(-l2_dist(data[i], data[j])/(2*sigma*sigma))
-#     if method == "k-nearest":
-#         for i in range(n):
-#             w = np.argsort(dist[i])
-#             dist[i] = dist[i] * (w >= k - 1)
-#         return dist
-#     if method == "FCon" :
-#         return dist
 def affinity(data, method = "k-nearest", k = 5, sigma = 10):
     n = data.shape[0]
     dist = np.zeros(shape = (n, n))
@@ -36,20 +22,14 @@ def affinity(data, method = "k-nearest", k = 5, sigma = 10):
         w = np.argsort(dist[i])[1:k+1]   
         for j in w:         
             a[i][j] = np.exp(-dist[i][j] /(2*sigma*sigma))
-    print("build_complete")
     return (a + a.T) / 2
-    if method == "k-nearest":
-        for i in range(n):
-            w = np.argsort(dist[i])[:n - k]
-            dist[w] = 0
-        return dist
+
 def CLR_map(data, m = 4):
     n = data.shape[0]
     e = np.zeros((n, n))    
     for i in range(n):
         for j in range(n):
             e[i, j] = l2_dist(data[i], data[j])
-    print("calc_dis finished")
     idx = np.zeros((n, m + 1))
     for i in range(n):
         idx[i] = np.argsort(e[i])[:m + 1]
@@ -76,6 +56,20 @@ def plot_data(data, catagory, name = None) :
     # plt.show()
 
 def spectral_clustering(W, k):
+    """
+    
+    Arguments
+    ---------
+    W : adjacency matrix of data
+    k : number of clusters
+    
+    Returns
+    -------
+    catagory : clustering results (n dim vector)
+    C : low-dimensional feature obtained by spectral clustering
+    """
+    
+    
     n = W.shape[0]
     d = np.sum(W, axis = 0)
     D = np.diag(d)

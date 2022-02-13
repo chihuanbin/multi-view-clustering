@@ -7,34 +7,25 @@ from kmeans import kmeans
 from scipy.optimize import linear_sum_assignment
 from scipy.sparse.csgraph import connected_components
 # from my_attempt import Dataset 
-from utils import simplex_opt, get_data, CLR_map, l2_dist, acc, calc_eigen,f_norm, get_laplacian
+from utils import simplex_opt, get_data, CLR_map, l2_dist, calc_eigen, get_laplacian
 import evaluation
 
-def eu_dist(x, y):
-    return np.sqrt(np.sum((x - y) ** 2))
-
-
-def l2_dist(x, y):
-    return np.sum((x - y) ** 2)
-
-
-def calc_dist(x, y, method="eu"):
-    if method == "eu":
-        return eu_dist(x, y)
-
-
-def plot_data(data, catagory):
-    cr = []
-    color = ["r", "b", "y", "g"]
-    for i in range(data.shape[0]):
-        cr.append(color[catagory[i]])
-    plt.scatter(data[:, 0], data[:, 1], color=cr)
-    plt.plot()
-    plt.show()
-
-
-
 def CAN(data, k, lambda_1 = 1, epoch = 20):
+    """
+    
+    Arguments
+    ---------
+    data : raw data 
+    k : number of clusters
+    lambda_c : parameter which controls the degree of laplacian rank constrained  
+    epoch : max_iteration
+    Returns
+    -------
+    S : graph constructed by CAN(n*n)
+    G : clustering results (n dim vector)
+    """
+    
+    
     N = data.shape[0]
     S = CLR_map(data, m = 4)
     L = get_laplacian(S)
@@ -45,10 +36,6 @@ def CAN(data, k, lambda_1 = 1, epoch = 20):
     for i in range(N):
         for j in range(N):
             A[i, j] = l2_dist(data[i], data[j])
-        # A[i] = A[i] / np.sum(A[i])
-            # print(data[i], data[j], A[i][j])
-            # return
-    # A /= np.sum(A)
     for t in range(epoch):
         d = np.zeros((N, N))
         for i in range(N):
@@ -75,6 +62,18 @@ def CAN(data, k, lambda_1 = 1, epoch = 20):
         print("Wrong Clustering", _)
     return S, G 
 def get_gamma(data, m = 8):
+    """
+    
+    Arguments
+    ---------
+    data : raw data 
+    m : number of neighbors taken into consider
+    Returns
+    -------
+    gamma : a hyperparameter in CAN
+    """
+    
+    
     n = data.shape[0]
     e = np.zeros((n, n))    
     for i in range(n):

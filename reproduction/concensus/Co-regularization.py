@@ -18,25 +18,25 @@ eps = 1e-7
 # for seed in seeds:
 seed = 10
 
-def CLR_map(data, m = 4):
-    n = data.shape[0]
-    e = np.zeros((n, n))    
-    for i in range(n):
-        for j in range(n):
-            e[i, j] = l2_dist(data[i], data[j])
-    # print("calc_dis finished")
-    idx = np.zeros((n, m + 1))
-    for i in range(n):
-        idx[i] = np.argsort(e[i])[:m + 1]
+# def CLR_map(data, m = 4):
+#     n = data.shape[0]
+#     e = np.zeros((n, n))    
+#     for i in range(n):
+#         for j in range(n):
+#             e[i, j] = l2_dist(data[i], data[j])
+#     # print("calc_dis finished")
+#     idx = np.zeros((n, m + 1))
+#     for i in range(n):
+#         idx[i] = np.argsort(e[i])[:m + 1]
         
-    idx = idx.astype(np.int16)
-    W = np.zeros((n, n))
-    eps = 1e-8
-    for i in range(n):
-        id = idx[i, 1:m + 1]
-        d = e[i, id]
-        W[i, id] = (d[m - 1] - d + eps / m) / (m * d[m - 1] - np.sum(d) + eps)
-    return (W + W.T) / 2
+#     idx = idx.astype(np.int16)
+#     W = np.zeros((n, n))
+#     eps = 1e-8
+#     for i in range(n):
+#         id = idx[i, 1:m + 1]
+#         d = e[i, id]
+#         W[i, id] = (d[m - 1] - d + eps / m) / (m * d[m - 1] - np.sum(d) + eps)
+#     return (W + W.T) / 2
 
 def build_net(data):
     V = len(data)

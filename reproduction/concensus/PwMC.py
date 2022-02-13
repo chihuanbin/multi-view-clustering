@@ -13,6 +13,17 @@ from sklearn.metrics.cluster import normalized_mutual_info_score
 import evaluation
 
 def dist_map(F):
+    """
+    
+    Arguments
+    ---------
+    F : matrix which has the size of (n * fn(feature number)) 
+    Returns
+    -------
+    c : distance calculated pair by pair
+    """
+    
+    
     n = F.shape[0]
     c = np.zeros((n, n))
     for i in range(n):
@@ -24,7 +35,21 @@ gamma = 10
 Dataset = "100leaves"
 # Dataset = "Caltech101-7"
 data_v, label, k = get_data(dataset=Dataset)
-def SwMC(W_v, k, lambda_1 = 1):
+
+def SwMC(W_v, k):
+    """
+    
+    Arguments
+    ---------
+    W_v : list of NxN graphs in V views
+    k : the number of clusters
+    Returns
+    -------
+    _ : graph constructed by SwMC(n*n)
+    G : clustering results (n dim vector)
+    """
+    
+    
     epoch = 0
     V = len(W_v)
     alpha = np.ones(V) / V
@@ -50,15 +75,7 @@ def SwMC(W_v, k, lambda_1 = 1):
         W /= np.sum(alpha)
         _, G = connected_components(S)
         if _ != k :
-            print("Wrong Clustering", _)
-        print("SwMC:", evaluation.clustering(G, label))    
-        for i in range(k):
-            print("Cluster_num" + str(i) + ":", (G == i).sum())
-
-        # F_old = F.copy()            
-        # L = get_laplacian(S, normalization=0)
-        # lamb, F = calc_eigen(L, k)
-        
+            print("Wrong Clustering", _)        
     _, G = connected_components(S)
     if _ != k :
         print("Wrong Clustering", _)
@@ -66,7 +83,21 @@ def SwMC(W_v, k, lambda_1 = 1):
     for i in range(k):
         print("Cluster_num" + str(i) + ":", (G == i).sum())
     return _, G
-def PwMC(W_v, k, lambda_c = 1):
+
+def PwMC(W_v, k, lambda_c = 1):    
+    """
+    
+    Arguments
+    ---------
+    W_v : list of NxN graphs in V views
+    k : the number of clusters
+    lambda_c : parameter which controls the degree of laplacian rank constrained  
+    Returns
+    -------
+    _ : graph constructed by PwMC(n*n)
+    G : clustering results (n dim vector)
+    """
+    
     V = len(W_v)
     n = W_v[0].shape[0]
     alpha = np.ones(V) / V

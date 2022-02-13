@@ -10,18 +10,6 @@ from scipy.sparse.csgraph import connected_components
 from utils import simplex_opt, get_data, CLR_map, l2_dist, acc, calc_eigen,f_norm, get_laplacian
 import evaluation
 
-def eu_dist(x, y):
-    return np.sqrt(np.sum((x - y) ** 2))
-
-
-def l2_dist(x, y):
-    return np.sum((x - y) ** 2)
-
-
-def calc_dist(x, y, method="eu"):
-    if method == "eu":
-        return eu_dist(x, y)
-
 def CLR(W, k, lambda_c=1, iter_num=40):
     """
     
