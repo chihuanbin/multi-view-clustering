@@ -18,7 +18,7 @@ def CLR(W, k, lambda_c=1, iter_num=40):
     W : adjacency matrix of data
     k : number of clusters
     lambda_c : parameter which controls the degree of laplacian rank constrained  
-    
+    iter_num : max_iteration
     Returns
     -------
     S : graph constructed by CLR(n*n)

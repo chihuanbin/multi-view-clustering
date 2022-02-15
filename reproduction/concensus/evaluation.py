@@ -1,8 +1,6 @@
 from sklearn import metrics
 import numpy as np
 import sklearn.metrics as metrics
-from sklearn.cluster import KMeans
-import sys
 from munkres import Munkres
 
 
@@ -11,13 +9,12 @@ def clustering(x, y, need_kmeans = False):
     n_clusters = np.size(np.unique(y))
 
     kmeans_assignments = x
-    y_preds = get_y_preds(y, kmeans_assignments, n_clusters)
     if np.min(y) == 1:
         y = y - 1
     scores, _ = clustering_metric(y, kmeans_assignments, n_clusters)
 
     ret = {}
-    ret['kmeans'] = scores
+    ret['result'] = scores
     return ret
 
 def calculate_cost_matrix(C, n_clusters):
@@ -105,37 +102,3 @@ def clustering_metric(y_true, y_pred, n_clusters, verbose=True, decimals=4):
     ari = np.round(ari, decimals)
 
     return dict({'AMI': ami, 'NMI': nmi, 'ARI': ari}, **classification_metrics), confusion_matrix
-
-
-def get_cluster_sols(x, cluster_obj=None, ClusterClass=None, n_clusters=None, init_args={}):
-    """Using either a newly instantiated ClusterClass or a provided cluster_obj, generates
-        cluster assignments based on input data.
-
-        Args:
-            x: the points with which to perform clustering
-            cluster_obj: a pre-fitted instance of a clustering class
-            ClusterClass: a reference to the sklearn clustering class, necessary
-              if instantiating a new clustering class
-            n_clusters: number of clusters in the dataset, necessary
-                        if instantiating new clustering class
-            init_args: any initialization arguments passed to ClusterClass
-
-        Returns:
-            a tuple containing the label assignments and the clustering object
-    """
-    # if provided_cluster_obj is None, we must have both ClusterClass and n_clusters
-    assert not (cluster_obj is None and (ClusterClass is None or n_clusters is None))
-    cluster_assignments = None
-    if cluster_obj is None:
-        cluster_obj = ClusterClass(n_clusters, **init_args)
-        for _ in range(10):
-            try:
-                cluster_obj.fit(x)
-                break
-            except:
-                print("Unexpected error:", sys.exc_info())
-        else:
-            return np.zeros((len(x),)), cluster_obj
-
-    cluster_assignments = cluster_obj.predict(x)
-    return cluster_assignments, cluster_obj
