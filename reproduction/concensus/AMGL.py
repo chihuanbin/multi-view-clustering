@@ -21,62 +21,63 @@ from CLR import CLR
 from sklearn.metrics.cluster import normalized_mutual_info_score
 import evaluation
 
-def dist_map(F):
-    
-    n = F.shape[0]
-    c = np.zeros((n, n))
-    for i in range(n):
-        for j in range(n):
-            c[i][j] = l2_dist(F[i], F[j])
-    return c
+def dist_map(F): 
+    num_data = F.shape[0]
+    map = np.zeros((num_data, num_data))
+    for i in range(num_data):
+        for j in range(num_data):
+            map[i][j] = l2_dist(F[i], F[j])
+    return map
 eps = 1e-8
-Dataset = "100leaves"
-Dataset = "Caltech101-7"
-Dataset = "Mfeat"
-data_v, label, k = get_data(dataset=Dataset)
 
-def AMGL(W, k, lambda_1 = 1):
+
+def AMGL(W, label):
     """
 
     Arguments
     ---------
-    W : list of NxN graphs in V views
-    k : the number of categories.
+    W : list of NxN graphs in num_view views
+    label : the label of each data.
     Returns
     -------
     ans : prediction results.
     """
 
     epoch = 0
-    V = len(W)
-    alpha = np.ones(V) / V
-    W_c = np.zeros((n, n))
-    L = []
-    for v in range(V):
-        W_c += alpha[v] * W[v]   
-        L.append(get_laplacian(W[v], normalization=0))   
-    W_c /= np.sum(alpha) 
-    L_c = get_laplacian(W_c, normalization=0)
-    _, F = calc_eigen(L_c, k)
+    num_view = len(W)
+    num_data = label.shape[0]
+    alpha = np.ones(num_view) / num_view
+    W_consensus = np.zeros((num_data, num_data))
+    num_category = label.max() - label.min()
+    Laplacian = []
+    for v in range(num_view):
+        W_consensus += alpha[v] * W[v]   
+        Laplacian.append(get_laplacian(W[v], normalization=0))   
+    W_consensus /= np.sum(alpha) 
+    L_consensus = get_laplacian(W_consensus, normalization=0)
+    _, Feature = calc_eigen(L_consensus, num_category)
     for epoch in range(20):
-        for v in range(V):
-            alpha[v] = 1/(2 * np.sqrt(np.trace(F.T @ L[v] @ F)))
-        W_c = np.zeros((n, n))
-        for v in range(V):
-            W_c += alpha[v] * W[v]  
-        L_c = get_laplacian(W_c, normalization=0)
-        _, F = calc_eigen(L_c, k)
-        _, ans = kmeans(F, k)
+        for v in range(num_view):
+            alpha[v] = 1/(2 * np.sqrt(np.trace(Feature.T @ Laplacian[v] @ Feature)))
+        W_consensus = np.zeros((num_data, num_data))
+        for v in range(num_view):
+            W_consensus += alpha[v] * W[v]  
+        L_consensus = get_laplacian(W_consensus, normalization=0)
+        _, Feature = calc_eigen(L_consensus, num_category)
+        _, ans = kmeans(Feature, num_category)
         print(evaluation.clustering(ans, label))
-        for i in range(k):
+        for i in range(num_category):
             print("Cluster_num" + str(i) + ":", (ans == i).sum())
     return ans
-
-n = label.shape[0]
-W_v = []
-V = len(data_v)
-for i in range(V):
-    W = CLR_map(data_v[i])
-    W_v.append(W)
-lambda_c = 1
-_ = AMGL(W_v, k)
+if __name__ == "__main__":
+    Dataset = "100leaves"
+    Dataset = "Caltech101-7"
+    Dataset = "Mfeat"
+    data_v, label, k = get_data(dataset=Dataset)
+    n = label.shape[0]
+    W_v = []
+    V = len(data_v)
+    for i in range(V):
+        W = CLR_map(data_v[i])
+        W_v.append(W)
+    _ = AMGL(W_v, k)
