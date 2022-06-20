@@ -26,9 +26,13 @@ A categorization and reproduction for Multi-view Clustering(MvC).
 
 ### Incomplete MvC
 
- - [ ] PIC [Spectral Perturbation Meets Incomplete Multi-view Data](https://arxiv.org/pdf/1906.00098)
- - [ ] PVC [Partial multi-view clustering](https://ojs.aaai.org/index.php/AAAI/article/view/8973)
-
+Partial consensus Learning
+  - [x] PVC [Partial multi-view clustering](https://ojs.aaai.org/index.php/AAAI/article/view/8973) 
+  - [x] SRLC[Simultaneous Representation Learning and Clustering for Incomplete Multi-view Data](https://www.researchgate.net/profile/Chenping-Hou/publication/334844435_Simultaneous_Representation_Learning_and_Clustering_for_Incomplete_Multi-view_Data/links/5d97068fa6fdccfd0e7488a3/Simultaneous-Representation-Learning-and-Clustering-for-Incomplete-Multi-view-Data.pdf)  [code](https://github.com/ChenpingHou/Simultaneous-Representation-Learning-and-Clustering-for-Incomplete-Multi-view-Data)
+  - [ ] IMCRV[Incomplete Multi-View Clustering with Reconstructed Views](https://ieeexplore.ieee.org/abstract/document/9536450)  [unreleased code]
+Data completion
+ - [x] PIC [Spectral Perturbation Meets Incomplete Multi-view Data](https://arxiv.org/pdf/1906.00098)[[code]](https://github.com/cshaowang/pic)
+ - [x] AGC-IMC [Adaptive Graph Completion Based Incomplete Multi-view Clustering](https://ieeexplore.ieee.org/abstract/document/9154578)[[code]](https://github.com/ckghostwj/Adaptive-Graph-Completion-Based-Incomplete-Multi-view-Clustering)
 ## Performance
 
 ### Consensus MvC
